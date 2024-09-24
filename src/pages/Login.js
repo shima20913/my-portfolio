@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { auth } from '../firebase';
 import { signInWithEmailAndPassword } from "firebase/auth";
+import { useNavigate } from 'react-router-dom';
 import { 
   Container, 
   Box, 
@@ -22,6 +23,8 @@ const Login = ({ setUser }) => {
     const [successMessage, setSuccessMessage] = useState('');
     const [loading, setLoading] = useState(false);
 
+    const navigate = useNavigate();
+
     
 
     const handleSubmit = async (e) => {
@@ -34,6 +37,7 @@ const Login = ({ setUser }) => {
 
           setTimeout(() => {
             setSuccessMessage('');
+            navigate('/admin/blog-editor');
           }, 3000);
 
         } catch (error) {
