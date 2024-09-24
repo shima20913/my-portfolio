@@ -13,7 +13,7 @@ import { NavLink as RouterLink } from 'react-router-dom';
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 import { motion } from 'framer-motion';
 
-const MotionBox = motion(Box);
+const MotionBox = motion.create(Box);
 
 const Header = () => {
   const { isOpen, onToggle } = useDisclosure();
