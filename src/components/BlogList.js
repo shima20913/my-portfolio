@@ -1,26 +1,31 @@
-import React from 'react';
-import { Box, Heading, Text, ListItem, List } from '@chakra-ui/react';
+import React, { useEffect } from 'react';
+import { 
+  Box, 
+  Heading, 
+  Text, 
+  ListItem, 
+  List 
+} from '@chakra-ui/react';
+import { collection, getDocs } from 'firebase/firestore';
+import { firestore } from '../firebase';
 
-const BlogList = ({ entries }) => {
-    return (
-        <Box p={5} maxW="container.md" mx="auto">
-          {entries.length === 0 ? (
-            <Text>まだブログは投稿されていません。</Text>
-          ) : (
-            <List spacing={4}>
-            {entries.map((entry) => (
-              <ListItem key={entry.id} p={5} shadow="md" borderWidth="1px" borderRadius="md" mb={4}>
-                <Heading fontSize="xl">{entry.title}</Heading>
-                <Text mt={2}>{entry.content}</Text>
-                <Text mt={2} fontSize="sm" color="gray.500">
-                  {entry.date}
-                </Text>             
-              </ListItem>
-            ))}
-            </List>
-          )}
-        </Box>
-      );
+const BlogList = () => {
+  const [blogs, setBlogs] = useState([]);
+
+  useEffect(() => {
+    const fetchBlogs = async () => {
+      const querySnapshot = await getDocs(collection(firestore, "blogs"));
+      const blogData = querySnapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      }));
+      setBlogs(blogData);
+    };
+
+    fetchBlogs();
+  }, []);
+
+    
     };
     
     export default BlogList;
