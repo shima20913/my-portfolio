@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Box, Heading } from '@chakra-ui/react';
 import { useEffect } from 'react';
-import { auth } from './firebase';
+import { auth } from '../firebase';
 import BlogForm from './BlogForm';
 import BlogList from './BlogList';
 
@@ -32,8 +32,9 @@ const BlogPage = () => {
         <p>投稿や編集を行うにはログインしてください。</p>
       )}
       <Heading as="h2" mt={10} mb={5}>
-        投稿されたブログ
+      <p>投稿されたブログ</p>
       </Heading>
+      <BlogList entries={entries} />
     </Box>
   );
 };
