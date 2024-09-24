@@ -5,14 +5,19 @@ import BlogList from './BlogList';
 
 const BlogPage = () => {
    const [entries, setEntries] = useState([]);
+   const [user, setUser] = useState(null);
 
-   const addBlogEntry = (entry) => {
+   useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((currentUser) => {
+      setUser(currentUser); 
+    });
+    return () => unsubscribe();
+  }, []);
+
+  const addBlogEntry = (entry) => {
     setEntries([entry, ...entries]);
-   };
-
-   const deleteBlogEntry = (id) => {
-    setEntries(entries.filter((entry) => entry.id !== id)); 
   };
+
 
    return (
     <Box p={5}>

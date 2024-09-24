@@ -1,7 +1,7 @@
 import React from 'react';
-import { Box, Heading, Text, ListItem, Button } from '@chakra-ui/react';
+import { Box, Heading, Text, ListItem } from '@chakra-ui/react';
 
-const BlogList = ({entries, deleteBlogEntry }) => {
+const BlogList = ({ entries }) => {
     return (
         <Box p={5} maxW="container.md" mx="auto">
           {entries.length === 0 ? (
@@ -15,9 +15,7 @@ const BlogList = ({entries, deleteBlogEntry }) => {
                   {entry.date}
                 </Text>
                 <Text mt={4}>{entry.content}</Text>
-                <Button mt={4} colorScheme="red" size="sm" onClick={() => deleteBlogEntry(entry.id)}>
-                削除
-              </Button>
+                
               </ListItem>
             ))
           )}
