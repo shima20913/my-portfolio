@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
+import { auth } from './firebase';
+import { signInWithEmailAndPassword } from "firebase/auth";
+
 
 const Login = ({ setUser }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+    
 
     const handleSubmit = async (e) => {
         e.preventDefault();
