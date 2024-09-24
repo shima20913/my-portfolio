@@ -18,7 +18,7 @@ import { Navigate } from 'react-router-dom';
 
 function App() {
   const [user, setUser] = useState(null);
-  const [isAdmin, setIsAdmin] = useState(false);
+  const [setIsAdmin] = useState(false);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -43,7 +43,7 @@ function App() {
       };
       fetchUserRole();
     }
-  }, [user]);
+  }, [user, setIsAdmin]);
 
   return (
     <ChakraProvider>
