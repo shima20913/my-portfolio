@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import { Box, Heading } from '@chakra-ui/react';
+import DiaryForm from './DiaryForm';
+import DiaryList from './DiaryList';
 
 const BlogPage = () => {
    const [entries, setEntries] = useState([]);
