@@ -19,7 +19,10 @@ const Header = () => {
               Qiita
             </Link>
             <Link as={RouterLink} to="/myblog" _hover={{ textDecoration: 'none' }}>
-            myBlog
+            MyBlog
+            </Link>
+            <Link as={RouterLink} to="/login" _hover={{ textDecoration: 'none' }}>
+            LogIn
             </Link>
         </Stack>
         </Flex>
