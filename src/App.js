@@ -2,7 +2,6 @@ import React from 'react';
 import { useState, useEffect} from 'react';
 import { auth, firestore } from './firebase';
 import { doc, getDoc } from 'firebase/firestore';
-
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { Box } from '@chakra-ui/react';
 import { ChakraProvider } from '@chakra-ui/react';
@@ -14,12 +13,24 @@ import Blog from './pages/Blog';
 import Github from './components/Github';
 import BlogList from './components/BlogList';  
 import Login from './pages/Login'; 
-import ProtectRoute from './components/ProtectRoute';
 import BlogEdit from './components/BlogEdit';
+import { Navigate } from 'react-router-dom';
 
 function App() {
   const [user, setUser] = useState(null);
   const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        setUser(user); 
+      } else {
+        setUser(null);  
+      }
+    });
+  
+    return () => unsubscribe();  
+  }, []);
 
   useEffect(() => {
     if (user) {
@@ -45,8 +56,8 @@ function App() {
             <Route path="/about" element={<About />} />
             <Route path="/blog" element={<Blog />} />
             <Route path="/github" element={<Github />} />
-            <Route path="/blog" element={<BlogList />} />
-            <Route path="/admin/blog-editor" element={<ProtectRoute user={user} isAdmin={isAdmin}><BlogEdit /></ProtectRoute>
+            <Route path="/myblog" element={<BlogList />} />
+            <Route path="/admin/blog-editor" element={ user ? <BlogEdit /> : <Navigate to="/login" />
                 }
               />
             <Route path="/login" element={<Login setUser={setUser} />} />
