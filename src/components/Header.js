@@ -16,7 +16,10 @@ const Header = () => {
               About
             </Link>
             <Link as={RouterLink} to="/blog" _hover={{ textDecoration: 'none' }}>
-              Blog
+              Qiita
+            </Link>
+            <Link as={RouterLink} to="/myblog" _hover={{ textDecoration: 'none' }}>
+            myBlog
             </Link>
         </Stack>
         </Flex>
