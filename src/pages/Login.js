@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { auth } from '../firebase';
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from 'react-router-dom';
@@ -13,10 +13,11 @@ import {
   Button,
   Alert,
   AlertIcon,
+  Input
 } from '@chakra-ui/react';
 
 
-const Login = ({ setUser }) => {
+const Login = ({ setUser, isAdmin }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
@@ -37,7 +38,6 @@ const Login = ({ setUser }) => {
 
           setTimeout(() => {
             setSuccessMessage('');
-            navigate('/admin/blog-editor');
           }, 3000);
 
         } catch (error) {
@@ -46,6 +46,13 @@ const Login = ({ setUser }) => {
           setLoading(false); 
         }
     };
+
+    useEffect(() => {
+      if (successMessage && isAdmin) {
+        navigate('/admin/blog-editor');
+      }
+    }, [successMessage, isAdmin, navigate]);
+    
 
     return (
       <Container maxW="sm" centerContent>
@@ -82,12 +89,12 @@ const Login = ({ setUser }) => {
           <form onSubmit={handleSubmit}>
           <FormControl id="email" isRequired>
               <FormLabel>Email</FormLabel>
-              <input type="email" placeholder="メールアドレスを入力" value={email} onChange={(e) => setEmail(e.target.value)} />
+              <Input type="email" placeholder="メールアドレスを入力" value={email} onChange={(e) => setEmail(e.target.value)} />
               </FormControl>
 
               <FormControl id="password" isRequired mt={4}>
               <FormLabel>Password</FormLabel>
-              <input type="password" placeholder="パスワードを入力" value={password} onChange={(e) => setPassword(e.target.value)} focusBorderColor="teal.400"/>
+              <Input type="password" placeholder="パスワードを入力" value={password} onChange={(e) => setPassword(e.target.value)} focusBorderColor="teal.400"/>
               </FormControl>
             <Button  variant="solid" type="submit" colorScheme="blue" size="md"  mt={6} w="full" _hover={{ bg: "teal.600" }} isLoading={loading}>ログイン</Button>
             </form>
