@@ -31,11 +31,12 @@ const BlogForm = ({addBlogEntry}) => {
             duration: 3000,
             isClosable: true,
           });
+        }
 
 
           return (
             <Box p={5} shadow="md" borderWidth="1px" borderRadius="md">
-              <form onSubmit={handleSubmit}>
+              <form onSubmit={submitHandle}>
                 <FormControl id="title" isRequired mb={4}>
                   <FormLabel>タイトル</FormLabel>
                   <Input
@@ -62,12 +63,11 @@ const BlogForm = ({addBlogEntry}) => {
           );
         };
         
-        export default DiaryForm;
+        export default BlogForm;
 
-    }
-
-
+    
 
 
 
-}
+
+
