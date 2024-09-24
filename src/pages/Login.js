@@ -17,7 +17,7 @@ import {
 } from '@chakra-ui/react';
 
 
-const Login = ({ setUser, isAdmin }) => {
+const Login = ({ setUser }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
