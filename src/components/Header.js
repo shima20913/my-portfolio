@@ -12,10 +12,20 @@ import {
 } from '@chakra-ui/react'
 import { NavLink as RouterLink } from 'react-router-dom';
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
+import { motion } from 'framer-motion';
 
+const MotionBox = motion(Box);
 
 const Header = () => {
-  const { isOpen, onToggle } = useDisclosure
+  const { isOpen, onToggle } = useDisclosure();
+
+  const menuItems = [
+    { name: 'Home', path: '/' },
+    { name: 'About', path: '/about' },
+    { name: 'Qiita', path: '/blog' },
+    { name: 'MyBlog', path: '/myblog' },
+    { name: 'LogIn', path: '/login' }
+  ];
 
     return (
         <Box bg="teal.500" color="white" px={4}>
@@ -25,42 +35,41 @@ const Header = () => {
 
           
           <HStack as="nav" spacing={7} display={{ base: 'none', md: 'flex' }}>
-            <Link as={RouterLink} to="/" _hover={{ textDecoration: 'none' }}>
-              Home
+          {menuItems.map((item) => (
+            <Link
+              key={item.name}
+              as={RouterLink}
+              to={item.path}
+              _hover={{ textDecoration: 'none' }}
+            >
+              {item.name}
             </Link>
-            <Link as={RouterLink} to="/about" _hover={{ textDecoration: 'none' }}>
-              About
-            </Link>
-            <Link as={RouterLink} to="/blog" _hover={{ textDecoration: 'none' }}>
-              Qiita
-            </Link>
-            <Link as={RouterLink} to="/myblog" _hover={{ textDecoration: 'none' }}>
-            MyBlog
-            </Link>
-            <Link as={RouterLink} to="/login" _hover={{ textDecoration: 'none' }}>
-            LogIn
-            </Link>
-            </HStack>
-           </Flex>
+          ))}
+        </HStack>
+      </Flex>
+            
 
 
-           <Collapse in={isOpen} animateOpacity>
-        <VStack as="nav" spacing={4} display={{ md: 'none' }} mt={4}>
-          <Link as={RouterLink} to="/" _hover={{ textDecoration: 'none' }} onClick={onToggle}>
-            Home
-          </Link>
-          <Link as={RouterLink} to="/about" _hover={{ textDecoration: 'none' }} onClick={onToggle}>
-            About
-          </Link>
-          <Link as={RouterLink} to="/blog" _hover={{ textDecoration: 'none' }} onClick={onToggle}>
-            Qiita
-          </Link>
-          <Link as={RouterLink} to="/myblog" _hover={{ textDecoration: 'none' }} onClick={onToggle}>
-            MyBlog
-          </Link>
-          <Link as={RouterLink} to="/login" _hover={{ textDecoration: 'none' }} onClick={onToggle}>
-            LogIn
-          </Link>
+          <Collapse in={isOpen} animateOpacity>
+          <VStack as="nav" spacing={4} alignItems="start" bg="teal.500" p={4} display={{ md: 'none' }}>
+
+          {menuItems.map((item, index) => (
+            <MotionBox
+              key={item.name}
+              initial={{ opacity: 0, y: -20 }}   // アニメーションの初期状態
+              animate={{ opacity: 1, y: 0 }}     // アニメーションの完了状態
+              transition={{ delay: index * 0.1 }} // 各項目に遅延をつけて順番に表示
+            >
+              <Link 
+                as={RouterLink} 
+                to={item.path} 
+                _hover={{ textDecoration: 'none' }} 
+                onClick={onToggle}
+              >
+                {item.name}
+              </Link>
+          </MotionBox>
+          ))}
         </VStack>
       </Collapse>
     </Box>
