@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState,useEffect } from 'react';
 import { 
   Box, 
   Heading, 
@@ -24,6 +24,20 @@ const BlogList = () => {
 
     fetchBlogs();
   }, []);
+
+  return (
+    <Box>
+      <Heading as="h1" mb={4}>ブログ一覧</Heading>
+      <List spacing={3}>
+        {blogs.map((blog) => (
+          <ListItem key={blog.id}>
+            <Heading as="h2" size="md">{blog.title}</Heading>
+            <Text>{blog.content}</Text>
+          </ListItem>
+        ))}
+      </List>
+    </Box>
+  );
 
     
     };
