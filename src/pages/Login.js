@@ -10,6 +10,8 @@ import {
   FormLabel, 
   Text,
   Button,
+  Alert,
+  AlertIcon,
 } from '@chakra-ui/react';
 
 
@@ -17,6 +19,9 @@ const Login = ({ setUser }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+    const [successMessage, setSuccessMessage] = useState('');
+    const [loading, setLoading] = useState(false);
+
     
 
     const handleSubmit = async (e) => {
@@ -55,6 +60,21 @@ const Login = ({ setUser }) => {
          <Heading as="h2" size="lg" textAlign="center" color="teal.500">
           ログイン
           </Heading>
+
+          {successMessage && (
+        <Alert status="success" mb={4}>
+          <AlertIcon />
+          {successMessage}
+        </Alert>
+      )}
+
+          {error && (
+        <Alert status="error" mb={4}>
+          <AlertIcon />
+          {error}
+        </Alert>
+      )}
+
           <form onSubmit={handleSubmit}>
           <FormControl id="email" isRequired>
               <FormLabel>Email</FormLabel>
@@ -65,7 +85,7 @@ const Login = ({ setUser }) => {
               <FormLabel>Password</FormLabel>
               <input type="password" placeholder="パスワードを入力" value={password} onChange={(e) => setPassword(e.target.value)} focusBorderColor="teal.400"/>
               </FormControl>
-            <Button  variant="solid" type="submit" colorScheme="blue" size="md"  mt={6} w="full" _hover={{ bg: "teal.600" } }>ログイン</Button>
+            <Button  variant="solid" type="submit" colorScheme="blue" size="md"  mt={6} w="full" _hover={{ bg: "teal.600" }} isLoading={loading}>ログイン</Button>
             </form>
 
             {error && <Text color="red.500" textAlign="center">{error}</Text>}
