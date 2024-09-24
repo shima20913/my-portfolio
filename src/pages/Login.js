@@ -34,7 +34,9 @@ const Login = ({ setUser, isAdmin }) => {
         try {
           const userCredential = await signInWithEmailAndPassword(auth, email, password);
           setUser(userCredential.user);  
+          console.log(userCredential.user);
           setSuccessMessage("ログイン成功");
+          navigate('/admin/blog-editor');
 
           setTimeout(() => {
             setSuccessMessage('');
@@ -46,14 +48,7 @@ const Login = ({ setUser, isAdmin }) => {
           setLoading(false); 
         }
     };
-
-    useEffect(() => {
-      if (successMessage && isAdmin) {
-        navigate('/admin/blog-editor');
-      }
-    }, [successMessage, isAdmin, navigate]);
     
-
     return (
       <Container maxW="sm" centerContent>
         <Box
