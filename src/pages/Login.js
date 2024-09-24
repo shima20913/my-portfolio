@@ -21,11 +21,20 @@ const Login = ({ setUser }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setLoading(true);
         try {
           const userCredential = await signInWithEmailAndPassword(auth, email, password);
           setUser(userCredential.user);  
+          setSuccessMessage("ログイン成功");
+
+          setTimeout(() => {
+            setSuccessMessage('');
+          }, 3000);
+
         } catch (error) {
           setError('ログインに失敗しました');
+        } finally {
+          setLoading(false); 
         }
     };
 
