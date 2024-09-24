@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Box, Heading } from '@chakra-ui/react';
-import DiaryForm from './DiaryForm';
-import DiaryList from './DiaryList';
+import BlogForm from './BlogForm';
+import BlogList from './BlogList';
 
 const BlogPage = () => {
    const [entries, setEntries] = useState([]);
@@ -10,16 +10,20 @@ const BlogPage = () => {
     setEntries([entry, ...entries]);
    };
 
+   const deleteBlogEntry = (id) => {
+    setEntries(entries.filter((entry) => entry.id !== id)); 
+  };
+
    return (
     <Box p={5}>
       <Heading as="h1" mb={5}>
         投稿する
       </Heading>
-      <DiaryForm addDiaryEntry={addBlogEntry} />
+      <BlogForm addBlogEntry={addBlogEntry} />
       <Heading as="h2" mt={10} mb={5}>
         投稿されたブログ
       </Heading>
-      <DiaryList entries={entries} />
+      <BlogList entries={entries} deleteBlogEntry={deleteBlogEntry}/>
     </Box>
   );
 };
