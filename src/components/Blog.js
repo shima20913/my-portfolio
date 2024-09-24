@@ -32,6 +32,38 @@ const BlogForm = ({addBlogEntry}) => {
             isClosable: true,
           });
 
+
+          return (
+            <Box p={5} shadow="md" borderWidth="1px" borderRadius="md">
+              <form onSubmit={handleSubmit}>
+                <FormControl id="title" isRequired mb={4}>
+                  <FormLabel>タイトル</FormLabel>
+                  <Input
+                    type="text"
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                    placeholder="日記のタイトルを入力"
+                  />
+                </FormControl>
+                <FormControl id="content" isRequired mb={4}>
+                  <FormLabel>本文</FormLabel>
+                  <Textarea
+                    value={content}
+                    onChange={(e) => setContent(e.target.value)}
+                    placeholder="日記の内容を入力"
+                    rows={6}
+                  />
+                </FormControl>
+                <Button type="submit" colorScheme="teal">
+                  投稿する
+                </Button>
+              </form>
+            </Box>
+          );
+        };
+        
+        export default DiaryForm;
+
     }
 
 
