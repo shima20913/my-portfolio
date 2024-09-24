@@ -16,8 +16,22 @@ const BlogForm = ({addBlogEntry}) => {
                 duration: 3000,
                 isClosable: true,
             });
-            
+            return;
         }
+
+        addBlogEntry({ title, content, date: new Date().toLocaleDateString});
+
+        setTitle('');
+        setContent('');
+
+        toast({
+            title: '投稿完了',
+            description: '投稿されました',
+            status: 'success',
+            duration: 3000,
+            isClosable: true,
+          });
+
     }
 
 
